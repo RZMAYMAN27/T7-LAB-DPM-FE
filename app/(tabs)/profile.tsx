@@ -50,7 +50,7 @@ const ProfileScreen = () => {
         return (
             <PaperProvider>
                 <ThemedView style={styles.loadingContainer}>
-                    <ActivityIndicator animating={true} />
+                    <ActivityIndicator animating={true} color="#00FF00" />
                 </ThemedView>
             </PaperProvider>
         );
@@ -59,7 +59,7 @@ const ProfileScreen = () => {
     return (
         <PaperProvider>
             <ImageBackground
-                source={require('@/assets/images/favicon1.png')} 
+                source={require('@/assets/images/favicon.png')} // Replace with a dark-themed image
                 style={styles.container}
                 resizeMode="cover"
             >
@@ -83,7 +83,7 @@ const ProfileScreen = () => {
                             </Button>
                         </View>
                     ) : (
-                        <ThemedText>No profile data available</ThemedText>
+                        <ThemedText style={styles.noDataText}>No profile data available</ThemedText>
                     )}
                     <Portal>
                         <Dialog visible={dialogVisible} onDismiss={() => setDialogVisible(false)}>
@@ -108,21 +108,23 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#000', // Black background
     },
     container: {
         flex: 1,
-        justifyContent: 'center', 
+        justifyContent: 'center',
     },
     contentContainer: {
         flex: 1,
         padding: 20,
-        backgroundColor: 'rgba(255, 255, 255, 0.8)', 
+        backgroundColor: 'rgba(0, 0, 0, 0.8)', // Transparent black overlay
         marginHorizontal: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: '#000',
+        borderRadius: 10,
+        shadowColor: '#00FF00',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
+        shadowOpacity: 0.4,
         shadowRadius: 6,
         elevation: 5, // For Android shadow
     },
@@ -135,43 +137,44 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     username: {
-        fontSize: 26,
+        fontSize: 28,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#00FF00', // Neon green
     },
     email: {
         fontSize: 18,
-        color: '#666',
+        color: '#A9A9A9', // Light gray
         marginTop: 8,
     },
     infoCard: {
         width: '100%',
-        backgroundColor: '#fff',
+        backgroundColor: '#1C1C1C', // Dark gray
         borderRadius: 10,
         padding: 18,
         marginBottom: 16,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3, 
+        borderColor: '#00FF00',
+        borderWidth: 1,
     },
     label: {
         fontSize: 14,
-        color: '#888',
+        color: '#A9A9A9', // Light gray
         marginBottom: 6,
     },
     value: {
         fontSize: 18,
         fontWeight: '600',
-        color: '#333',
+        color: '#FFF', // White text
     },
     logoutButton: {
         marginTop: 24,
-        backgroundColor: '#ff5252',
+        backgroundColor: '#00FF00', // Neon green
         borderRadius: 25,
         paddingVertical: 10,
         paddingHorizontal: 20,
+    },
+    noDataText: {
+        color: '#FFF', // White text
+        fontSize: 16,
     },
 });
 

@@ -40,6 +40,7 @@ export default function LoginScreen() {
 				value={username}
 				onChangeText={setUsername}
 				autoCapitalize="none"
+				placeholderTextColor="#a9a9a9"
 			/>
 			<TextInput
 				style={styles.input}
@@ -47,6 +48,7 @@ export default function LoginScreen() {
 				value={password}
 				onChangeText={setPassword}
 				secureTextEntry
+				placeholderTextColor="#a9a9a9"
 			/>
 			<TouchableOpacity
 				style={styles.loginButton}
@@ -65,73 +67,73 @@ export default function LoginScreen() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 16,
-        backgroundColor: "#6a11cb", 
-    },
-    logo: {
-        width: 150,
-        height: 150,
-        marginBottom: 24,
-        resizeMode: "contain",
-    },
-    title: {
-        fontSize: 28,
-        fontWeight: "bold",
-        marginBottom: 8,
-        color: "#ffffff",
-        textAlign: "center",
-    },
-    subtitle: {
-        fontSize: 16,
-        marginBottom: 24,
-        color: "#e0e0e0",
-        textAlign: "center",
-    },
-    input: {
-        width: "100%",
-        height: 48,
-        borderColor: "#ffffff",
-        borderWidth: 1,
-        borderRadius: 8,
-        paddingHorizontal: 12,
-        marginBottom: 16,
-        backgroundColor: "#ffffff30", 
-        fontSize: 16,
-        color: "#ffffff",
-    },
-    registerButton: {
-        width: "100%",
-        height: 48,
-        borderWidth: 1,
-        borderColor: "#ffffff",
-        borderRadius: 8,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#ffffff30",
-        marginBottom: 16,
-    },
-    registerButtonText: {
-        color: "#ffffff",
-        fontSize: 16,
-        fontWeight: "600",
-    },
-    loginButton: {
-        width: "100%",
-        height: 48,
-        borderWidth: 1,
-        borderColor: "#ffffff",
-        borderRadius: 8,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#ffffff30",
-    },
-    loginButtonText: {
-        color: "#ffffff",
-        fontSize: 16,
-        fontWeight: "600",
-    },
+	container: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		padding: 16,
+		backgroundColor: "#000000", // Black background
+	},
+	logo: {
+		width: 150,
+		height: 150,
+		marginBottom: 24,
+		resizeMode: "contain",
+	},
+	title: {
+		fontSize: 28,
+		fontWeight: "bold",
+		marginBottom: 8,
+		color: "#ffffff", // White text
+		textAlign: "center",
+	},
+	subtitle: {
+		fontSize: 16,
+		marginBottom: 24,
+		color: "#a9a9a9", // Light gray text
+		textAlign: "center",
+	},
+	input: {
+		width: "100%",
+		height: 48,
+		borderColor: "#00ff00", // Green border
+		borderWidth: 1,
+		borderRadius: 8,
+		paddingHorizontal: 12,
+		marginBottom: 16,
+		backgroundColor: "#1c1c1c", // Dark gray background
+		fontSize: 16,
+		color: "#ffffff", // White text
+	},
+	registerButton: {
+		width: "100%",
+		height: 48,
+		borderWidth: 1,
+		borderColor: "#00ff00", // Green border
+		borderRadius: 8,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "#1c1c1c", // Dark gray background
+		marginBottom: 16,
+	},
+	registerButtonText: {
+		color: "#00ff00", // Green text
+		fontSize: 16,
+		fontWeight: "600",
+	},
+	loginButton: {
+		width: "100%",
+		height: 48,
+		borderWidth: 1,
+		borderColor: "#00ff00", // Green border
+		borderRadius: 8,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "#00ff00", // Green background
+	},
+	loginButtonText: {
+		color: "#000000", // Black text
+		fontSize: 16,
+		fontWeight: "600",
+	},
 });

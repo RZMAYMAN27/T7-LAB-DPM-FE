@@ -18,7 +18,6 @@ import { useTodos } from '@/context/TodoContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import API_URL from '@/config/config';
-import Constants from "expo-constants";
 import { LinearGradient } from 'expo-linear-gradient';
 
 const TodosScreen = () => {
@@ -39,30 +38,6 @@ const TodosScreen = () => {
             setLoading(false);
         };
         loadTodos();
-
-       
-        const gradientColors = [
-            ['#B1F0F7', '#B4DA1A9', '#0A5EB0'],
-            ['#3D3BF3', '#4335A7', '#FFD700'],
-            ['#1F509A', '#FF8C00', '#B1F0F7']
-        ];
-
-        let index = 0;
-        const interval = setInterval(() => {
-            index = (index + 1) % gradientColors.length;
-            setGradientAnimation(new Animated.Value(0));
-
-          
-            Animated.timing(gradientAnimation, {
-                toValue: 1,
-                duration: 3000, 
-                useNativeDriver: false,
-            }).start();
-
-            
-            gradientAnimation.setValue(0); 
-        }, 3000); 
-        return () => clearInterval(interval); 
     }, []);
 
     const handleAddTodo = async () => {
@@ -73,10 +48,7 @@ const TodosScreen = () => {
         }
         try {
             const token = await AsyncStorage.getItem('token');
-            await axios.post(`${API_URL}/api/todos`, {
-                title,
-                description
-            }, { headers: { Authorization: `Bearer ${token}` } });
+            await axios.post(`${API_URL}/api/todos`, { title, description }, { headers: { Authorization: `Bearer ${token}` } });
             fetchTodos();
             setTitle('');
             setDescription('');
@@ -87,7 +59,7 @@ const TodosScreen = () => {
         }
     };
 
-    const handleDeleteTodo = async (id: string) => {
+    const handleDeleteTodo = async (id) => {
         try {
             const token = await AsyncStorage.getItem('token');
             await axios.delete(`${API_URL}/api/todos/${id}`, { headers: { Authorization: `Bearer ${token}` } });
@@ -100,29 +72,20 @@ const TodosScreen = () => {
 
     return (
         <PaperProvider>
-            {}
             <View style={styles.container}>
-            <LinearGradient
-    colors={['#E6E6FA', '#ADD8E6', '#98FF98']} // Lavender, Light Blue, Mint Green
-    start={{ x: 0, y: 0 }}
-    end={{ x: 1, y: 1 }}
-    style={[styles.background, {
-        transform: [
-            {
-                translateX: gradientAnimation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, 200],
-                }),
-            },
-        ],
-    }]}
-/>
-                
-                {/* Content */}
+                <LinearGradient
+                    colors={['#004d00', '#006600', '#009900']}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.background}
+                />
+
                 <ThemedView style={styles.innerContainer}>
-                    <ThemedText style={styles.title} type="title">ToDo List</ThemedText>
+                    <ThemedText style={styles.title} type="title">
+                        ToDo List
+                    </ThemedText>
                     {loading ? (
-                        <ActivityIndicator style={styles.loading} animating={true} />
+                        <ActivityIndicator style={styles.loading} animating={true} color="#00cc44" />
                     ) : (
                         <FlatList
                             data={todos}
@@ -134,7 +97,9 @@ const TodosScreen = () => {
                                         <Text variant="bodyMedium" style={styles.description}>{item.description}</Text>
                                     </Card.Content>
                                     <Card.Actions>
-                                        <Button onPress={() => handleDeleteTodo(item._id)} style={styles.deleteButton}>Delete</Button>
+                                        <Button onPress={() => handleDeleteTodo(item._id)} style={styles.deleteButton} textColor="#fff">
+                                            Delete
+                                        </Button>
                                     </Card.Actions>
                                 </Card>
                             )}
@@ -145,12 +110,16 @@ const TodosScreen = () => {
                         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.inputContainer}>
                             <TextInput label="Title" value={title} onChangeText={setTitle} style={styles.input} mode="outlined" />
                             <TextInput label="Description" value={description} onChangeText={setDescription} style={styles.input} mode="outlined" multiline />
-                            <Button mode="contained" onPress={handleAddTodo} style={styles.addButton}>Add Todo</Button>
-                            <Button onPress={() => setIsAdding(false)} style={styles.cancelButton}>Cancel</Button>
+                            <Button mode="contained" onPress={handleAddTodo} style={styles.addButton} buttonColor="#00cc44">
+                                Add Todo
+                            </Button>
+                            <Button onPress={() => setIsAdding(false)} style={styles.cancelButton} textColor="#fff">
+                                Cancel
+                            </Button>
                         </KeyboardAvoidingView>
                     )}
                     {!isAdding && (
-                        <FAB style={styles.fab} icon="plus" onPress={() => setIsAdding(true)} label="Add Todo" />
+                        <FAB style={styles.fab} icon="plus" onPress={() => setIsAdding(true)} color="#fff" label="Add Todo" />
                     )}
                     <Portal>
                         <Dialog visible={dialogVisible} onDismiss={() => setDialogVisible(false)} style={styles.dialog}>
@@ -159,7 +128,9 @@ const TodosScreen = () => {
                                 <Text>{dialogMessage}</Text>
                             </Dialog.Content>
                             <Dialog.Actions>
-                                <Button onPress={() => setDialogVisible(false)} style={styles.dialogButton}>OK</Button>
+                                <Button onPress={() => setDialogVisible(false)} style={styles.dialogButton} textColor="#fff">
+                                    OK
+                                </Button>
                             </Dialog.Actions>
                         </Dialog>
                     </Portal>
@@ -174,26 +145,23 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         paddingHorizontal: 16,
-        backgroundColor: 'transparent', 
+        backgroundColor: '#001a00',
     },
     background: {
         ...StyleSheet.absoluteFillObject,
-        position: 'absolute',
-        zIndex: -1, 
-        borderRadius: 10,
+        zIndex: -1,
     },
     innerContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 1,
-        backgroundColor: 'transparent',
     },
     title: {
         fontSize: 30,
         fontWeight: 'bold',
         marginTop: 20,
-        color: '#333',
+        color: '#00cc44',
         textAlign: 'center',
     },
     listContainer: {
@@ -202,7 +170,7 @@ const styles = StyleSheet.create({
     card: {
         marginBottom: 16,
         borderRadius: 10,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#002200',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.2,
@@ -212,27 +180,27 @@ const styles = StyleSheet.create({
     cardTitle: {
         fontSize: 20,
         fontWeight: '500',
-        color: '#333',
+        color: '#00ff66',
     },
     description: {
-        color: 'gray',
+        color: '#99ffbb',
         fontSize: 16,
         marginTop: 8,
     },
     deleteButton: {
-        backgroundColor: '#FF6347',
+        backgroundColor: '#b30000',
         borderRadius: 5,
     },
     fab: {
         position: 'absolute',
         right: 16,
         bottom: 16,
-        backgroundColor: '#FFD700',
+        backgroundColor: '#00cc44',
         elevation: 6,
     },
     inputContainer: {
         padding: 16,
-        backgroundColor: '#fff',
+        backgroundColor: '#004d00',
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         elevation: 5,
@@ -245,7 +213,7 @@ const styles = StyleSheet.create({
     },
     cancelButton: {
         marginTop: 8,
-        backgroundColor: '#DCDCDC',
+        backgroundColor: '#b30000',
     },
     loading: {
         flex: 1,
@@ -253,14 +221,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     dialog: {
-        backgroundColor: '#fff',
+        backgroundColor: '#004d00',
         borderRadius: 10,
     },
     dialogButton: {
-        backgroundColor: '#28a745',
+        backgroundColor: '#00cc44',
         borderRadius: 5,
     },
-    
 });
 
 export default TodosScreen;
